@@ -74,12 +74,16 @@ public class Cube4 implements Cube {
                     for(int k=0; k<4; k++)
                         cube[i][j][k]=' ';
         }
+        
         //vraca vrijednost koja se nalazi na poziciji (i,j,k)
+        @Override
         public char value(int i, int j, int k)
         {
             return cube[i][j][k];
         }
+        
         //ako je završno stanje vraća vrijednost inače ništa
+        @Override
         public Integer result()
         {
             char winner=winning_line();
@@ -88,7 +92,9 @@ public class Cube4 implements Cube {
             if(mNumber>=64) return 0;
             return null;
         }
+        
         //ova funkcija generira sve moguće poteze na tabli, sprema ih u vektor
+        @Override
         public ArrayList<Move> generate_moves()
         {
             ArrayList<Move> moves = new ArrayList<Move>();
@@ -103,6 +109,7 @@ public class Cube4 implements Cube {
             }
             return moves;
         }
+        
         //provjerava jeli potez valjan
         public boolean isValid(Move move)
         {
@@ -112,7 +119,9 @@ public class Cube4 implements Cube {
             if(value(move.level(),move.row(),move.column())!=' ') return false;
             return true;
         }
+        
         //odigra potez Move sa znakom char
+        @Override
         public boolean play(Move move,char c)
         {
             if(!isValid(move)) return false;
@@ -120,7 +129,9 @@ public class Cube4 implements Cube {
             mNumber++;
             return true;
         }
+        
         //odigra potez unazad
+        @Override
         public void unPlay(Move move)
         {
             if(cube[move.level()][move.row()][move.column()] != ' '){
@@ -137,6 +148,7 @@ public class Cube4 implements Cube {
         //ako opponent ima 3 u redu onda -5 boda
         //ako opponent ima 2 u redu onda -3 boda
         //ako opponent ima 1 u redu onda -1 boda
+        @Override
         public int heuristic(char player,char opponent)
         {
             //idem po svim winning lines i brojim koliko se znakova ukupno nalazi nasih i protivnikovih
@@ -372,14 +384,18 @@ public class Cube4 implements Cube {
             if(player=='O') return -result;
             return result;
         }
+        
         //vraca optimalnu dubinu minmax
+        @Override
         public int maxDepth()
         {
             //TODO provjeriti jeli optimalan i u javi
             //broj 6 se pokazao optimalnim
             return 6;
         }
+        
         //iscrtava kocku u terminalu
+        @Override
          public void print()
         {
             int i;

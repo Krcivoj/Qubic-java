@@ -46,7 +46,7 @@ public class Player {
                 for(int i=0; i<n; i++){
                     move = moves.remove(0);
                     cube.play(move, 'X');
-                    temp = minMax(cube, moves, 'O', alpha, beta, maxDepth-1);
+                    temp = minMax(cube, (ArrayList) moves.clone(), 'O', alpha, beta, maxDepth-1);
                     moves.add(move);
                     cube.unPlay(move);
                     if(temp.first>result.first){
@@ -66,7 +66,7 @@ public class Player {
                 for(int i=0; i<n; i++){
                     move = moves.remove(0);
                     cube.play(move, 'O');
-                    temp = minMax(cube, moves, 'X', alpha, beta, maxDepth-1);
+                    temp = minMax(cube, (ArrayList) moves.clone(), 'X', alpha, beta, maxDepth-1);
                     moves.add(move);
                     cube.unPlay(move);
                     if(temp.first<result.first){
@@ -110,7 +110,7 @@ public class Player {
                 if(result.first==-500 || result.first==500)break;
             }
 
-            if(mName == 'O' && result.first > 0){
+            /*if(mName == 'O' && result.first > 0){
                 for(int i = 1; i <= cube.maxDepth(); i++){
                     result = minMax(cube, moves, 'X', alpha, beta, i);
                     if(result.first==-500 || result.first==500)break;
@@ -122,7 +122,7 @@ public class Player {
                     result = minMax(cube, moves, 'O', alpha, beta, i);
                     if(result.first==-500 || result.first==500)break;
                 }
-            }
+            }*/
 
             System.out.println("Na redu je igrac: " + mName);
             System.out.println("Hint: " + result.first + result.second);
