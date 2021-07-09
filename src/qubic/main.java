@@ -15,6 +15,9 @@ public class main {
      */
     //Application logic
     public static void main(String[] args) {
+        gui app = new gui();
+        app.pozovi();
+        /**
         System.out.println("------IGRA QUBIC ZAPOCINJE------\n");
         Qubic game = new Qubic();
         Player winner = game.play();
@@ -24,6 +27,7 @@ public class main {
         }
         else{
             System.out.println("IGRA JE ZAVRSILA NERIJESENO!");
-    } 
+        }
+        **/
     }
 }
