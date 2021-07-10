@@ -15,26 +15,25 @@ public class Qubic {
     //polje od dva igrača
     private Player[] mPlayers = { new Player('X'), new Player('O')};
     
-    
     //stvara uvijete za početak igre
-    public Qubic()
+    public Qubic(int gameType)
     {
-        System.out.println("Odaberite verziju igre:");
-        System.out.println("Za igru na kocki 3X3X3 odaberite 3");
-        System.out.println("Za igru na kocki 4X4X4 odaberite 4");
-        System.out.println("Vas odabir: ");
+        //System.out.println("Odaberite verziju igre:");
+        //System.out.println("Za igru na kocki 3X3X3 odaberite 3");
+        //System.out.println("Za igru na kocki 4X4X4 odaberite 4");
+        //System.out.println("Vas odabir: ");
         
-        int gameType;
-        Scanner myInput = new Scanner( System.in );
-        gameType = myInput.nextInt();
-        System.out.println("\n\n");
+        //int gameType;
+        //Scanner myInput = new Scanner( System.in );
+        //gameType = myInput.nextInt();
+        //System.out.println("\n\n");
         if(gameType==3){
             mCube= new Cube3();
-            System.out.println("----IGRA KRIZIC-KRUZIC U 3D NA 3X3X3 KOCKI ZAPOCINJE----\n");
+            //System.out.println("----IGRA KRIZIC-KRUZIC U 3D NA 3X3X3 KOCKI ZAPOCINJE----\n");
         }
         else{
             mCube= new Cube4();
-            System.out.println("----IGRA KRIZIC-KRUZIC U 3D NA 4X4X4 KOCKI ZAPOCINJE----\n");
+            //System.out.println("----IGRA KRIZIC-KRUZIC U 3D NA 4X4X4 KOCKI ZAPOCINJE----\n");
         }
     }
 

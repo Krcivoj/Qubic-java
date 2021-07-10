@@ -7,6 +7,8 @@ package qubic;
 
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -15,7 +17,7 @@ import javax.swing.JPanel;
  * @author Nela
  */
 public class gui extends javax.swing.JFrame {
-
+    static String oznaka = "X";
     /**
      * Creates new form gui
      */
@@ -325,6 +327,8 @@ public class gui extends javax.swing.JFrame {
         naslov.setText("Igra " + prvoIme.getText() + " vs " + drugoIme.getText() + " je započela!");
         String tip = vrsta.getSelectedItem().toString();
         uputa.setText(tip);
+        
+        //igra na 3x3x3
         if(tip == "3x3x3"){
             nivo1.setVisible(true);
             nivo2.setVisible(true);
@@ -337,15 +341,49 @@ public class gui extends javax.swing.JFrame {
             JButton[] buttons2 = new JButton[9];
             JButton[] buttons3 = new JButton[9];
             for(int i = 0; i < 9; i++){
+                final int index = i;
                 buttons1[i] = new JButton(" ");
+                buttons1[i].putClientProperty("id", i+1+10);
+                buttons1[i].setFocusable(false);
+                buttons1[i].addActionListener(new ActionListener(){  
+                    @Override
+                    public void actionPerformed(ActionEvent e){  
+                        buttons1[index].setText(oznaka);
+                        buttons1[index].setEnabled(false);
+                        if( "X".equals(oznaka)) oznaka = "O";
+                        else oznaka = "X";
+                    }  
+                });
                 buttons2[i] = new JButton(" ");
+                buttons2[i].putClientProperty("id", i+1+20);
+                buttons2[i].setFocusable(false);
+                buttons2[i].addActionListener(new ActionListener(){  
+                    @Override
+                    public void actionPerformed(ActionEvent e){  
+                        buttons2[index].setText(oznaka); 
+                        buttons2[index].setEnabled(false);
+                        if( "X".equals(oznaka)) oznaka = "O";
+                        else oznaka = "X";
+                    }  
+                });
                 buttons3[i] = new JButton(" ");
+                buttons3[i].putClientProperty("id", i+1+30);
+                buttons3[i].setFocusable(false);
+                buttons3[i].addActionListener(new ActionListener(){  
+                    @Override
+                    public void actionPerformed(ActionEvent e){  
+                        buttons3[index].setText(oznaka);
+                        buttons3[index].setEnabled(false);
+                        if( "X".equals(oznaka)) oznaka = "O";
+                        else oznaka = "X";
+                    }  
+                });
                 nivo1.add(buttons1[i]);
                 nivo2.add(buttons2[i]);
                 nivo3.add(buttons3[i]);
             }
         }
-        else{
+        else{  //igra na 4x4x4
             nivo1.setVisible(true);
             nivo2.setVisible(true);
             nivo3.setVisible(true);
@@ -360,10 +398,55 @@ public class gui extends javax.swing.JFrame {
             JButton[] buttons3 = new JButton[16];
             JButton[] buttons4 = new JButton[16];
             for(int i = 0; i < 16; i++){
+                final int index = i;
                 buttons1[i] = new JButton(" ");
+                buttons1[i].putClientProperty("id", i+1+10);
+                buttons1[i].setFocusable(false);
+                buttons1[i].addActionListener(new ActionListener(){  
+                    @Override
+                    public void actionPerformed(ActionEvent e){  
+                        buttons1[index].setText(oznaka);
+                        buttons1[index].setEnabled(false);
+                        if( "X".equals(oznaka)) oznaka = "O";
+                        else oznaka = "X";
+                    }  
+                });
                 buttons2[i] = new JButton(" ");
+                buttons2[i].putClientProperty("id", i+1+20);
+                buttons2[i].setFocusable(false);
+                buttons2[i].addActionListener(new ActionListener(){  
+                    @Override
+                    public void actionPerformed(ActionEvent e){  
+                        buttons2[index].setText(oznaka);  
+                        buttons2[index].setEnabled(false);
+                        if( "X".equals(oznaka)) oznaka = "O";
+                        else oznaka = "X";
+                    }  
+                });
                 buttons3[i] = new JButton(" ");
+                buttons3[i].putClientProperty("id", i+1+30);
+                buttons3[i].setFocusable(false);
+                buttons3[i].addActionListener(new ActionListener(){  
+                    @Override
+                    public void actionPerformed(ActionEvent e){  
+                        buttons3[index].setText(oznaka);
+                        buttons3[index].setEnabled(false);
+                        if( "X".equals(oznaka)) oznaka = "O";
+                        else oznaka = "X";
+                    }  
+                });
                 buttons4[i] = new JButton(" ");
+                buttons4[i].putClientProperty("id", i+1+40);
+                buttons4[i].setFocusable(false);
+                buttons4[i].addActionListener(new ActionListener(){  
+                    @Override
+                    public void actionPerformed(ActionEvent e){  
+                        buttons4[index].setText(oznaka);
+                        buttons4[index].setEnabled(false);
+                        if( "X".equals(oznaka)) oznaka = "O";
+                        else oznaka = "X";
+                    }  
+                });
                 nivo1.add(buttons1[i]);
                 nivo2.add(buttons2[i]);
                 nivo3.add(buttons3[i]);
