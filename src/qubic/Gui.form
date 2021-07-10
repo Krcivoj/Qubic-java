@@ -353,8 +353,8 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="nivo1" alignment="0" max="32767" attributes="0"/>
                       <Component id="nivo2" alignment="0" max="32767" attributes="0"/>
-                      <Component id="nivo4" alignment="0" max="32767" attributes="0"/>
-                      <Component id="nivo3" max="32767" attributes="0"/>
+                      <Component id="nivo3" alignment="0" max="32767" attributes="0"/>
+                      <Component id="nivo4" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="208" max="32767" attributes="0"/>
               </Group>
@@ -368,9 +368,9 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="nivo2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="nivo4" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="nivo3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="nivo4" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="57" max="32767" attributes="0"/>
               </Group>
           </Group>

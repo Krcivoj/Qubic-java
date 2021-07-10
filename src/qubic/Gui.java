@@ -25,8 +25,8 @@ public class Gui extends javax.swing.JFrame {
         initComponents();
         nivo1.setVisible(false);
         nivo2.setVisible(false);
-        nivo3.setVisible(false);
         nivo4.setVisible(false);
+        nivo3.setVisible(false);
     }
 
     /**
@@ -278,8 +278,8 @@ public class Gui extends javax.swing.JFrame {
                 .addGroup(desnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(nivo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(nivo2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(nivo4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(nivo3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(nivo3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nivo4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(208, Short.MAX_VALUE))
         );
         desnoLayout.setVerticalGroup(
@@ -290,9 +290,9 @@ public class Gui extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nivo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nivo4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nivo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nivo4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(57, Short.MAX_VALUE))
         );
 
@@ -357,7 +357,7 @@ public class Gui extends javax.swing.JFrame {
             for(int i = 0; i < 9; i++){
                 final int index = i;
                 buttons1[i] = new JButton(" ");
-                buttons1[i].putClientProperty("id", i+1+10);
+                buttons1[i].putClientProperty("id", Integer.toString(0) + ',' + Integer.toString(i/3) + ',' + Integer.toString(i%3));
                 buttons1[i].setFocusable(false);
                 buttons1[i].addActionListener(new ActionListener(){  
                     @Override
@@ -366,10 +366,11 @@ public class Gui extends javax.swing.JFrame {
                         buttons1[index].setEnabled(false);
                         if( "X".equals(oznaka)) oznaka = "O";
                         else oznaka = "X";
-                    }  
+                        System.out.println(buttons1[index].getClientProperty("id"));
+                    } 
                 });
                 buttons2[i] = new JButton(" ");
-                buttons2[i].putClientProperty("id", i+1+20);
+                buttons2[i].putClientProperty("id", Integer.toString(1) + ',' + Integer.toString(i/3) + ',' + Integer.toString(i%3));
                 buttons2[i].setFocusable(false);
                 buttons2[i].addActionListener(new ActionListener(){  
                     @Override
@@ -378,10 +379,11 @@ public class Gui extends javax.swing.JFrame {
                         buttons2[index].setEnabled(false);
                         if( "X".equals(oznaka)) oznaka = "O";
                         else oznaka = "X";
+                        System.out.println(buttons2[index].getClientProperty("id"));
                     }  
                 });
                 buttons3[i] = new JButton(" ");
-                buttons3[i].putClientProperty("id", i+1+30);
+                buttons3[i].putClientProperty("id", Integer.toString(2) + ',' + Integer.toString(i/3) + ',' + Integer.toString(i%3));
                 buttons3[i].setFocusable(false);
                 buttons3[i].addActionListener(new ActionListener(){  
                     @Override
@@ -390,31 +392,33 @@ public class Gui extends javax.swing.JFrame {
                         buttons3[index].setEnabled(false);
                         if( "X".equals(oznaka)) oznaka = "O";
                         else oznaka = "X";
+                        System.out.println(buttons3[index].getClientProperty("id"));
                     }  
                 });
                 nivo1.add(buttons1[i]);
                 nivo2.add(buttons2[i]);
                 nivo3.add(buttons3[i]);
                 
-                //pocetak igre 
-                Qubic igra = new Qubic(3, this);
-                //Player pobjednik = igra.play();
-                System.out.print("Vani sam");
-                //ispis s winner.id() ako je null je remi
-                
-                
+               
             }
+            //pocetak igre 
+            Qubic igra = new Qubic(3, this);
+            //Player pobjednik = igra.play();
+            System.out.print("Vani sam");
+            //ispis s winner.id() ako je null je remi
+                
+                
         }
         else{  //igra na 4x4x4
             nivo1.setVisible(true);
             nivo2.setVisible(true);
-            nivo3.setVisible(true);
             nivo4.setVisible(true);
+            nivo3.setVisible(true);
             //dodavanje gumbova
             nivo1.setLayout(new GridLayout(4,4));
             nivo2.setLayout(new GridLayout(4,4));
-            nivo3.setLayout(new GridLayout(4,4));
             nivo4.setLayout(new GridLayout(4,4));
+            nivo3.setLayout(new GridLayout(4,4));
             JButton[] buttons1 = new JButton[16];
             JButton[] buttons2 = new JButton[16];
             JButton[] buttons3 = new JButton[16];
@@ -422,7 +426,7 @@ public class Gui extends javax.swing.JFrame {
             for(int i = 0; i < 16; i++){
                 final int index = i;
                 buttons1[i] = new JButton(" ");
-                buttons1[i].putClientProperty("id", i+1+10);
+                buttons1[i].putClientProperty("id", Integer.toString(0) + ',' + Integer.toString(i/4) + ',' + Integer.toString(i%4));
                 buttons1[i].setFocusable(false);
                 buttons1[i].addActionListener(new ActionListener(){  
                     @Override
@@ -431,10 +435,11 @@ public class Gui extends javax.swing.JFrame {
                         buttons1[index].setEnabled(false);
                         if( "X".equals(oznaka)) oznaka = "O";
                         else oznaka = "X";
+                        System.out.println(buttons1[index].getClientProperty("id"));
                     }  
                 });
                 buttons2[i] = new JButton(" ");
-                buttons2[i].putClientProperty("id", i+1+20);
+                buttons2[i].putClientProperty("id", Integer.toString(1) + ',' + Integer.toString(i/4) + ',' + Integer.toString(i%4));
                 buttons2[i].setFocusable(false);
                 buttons2[i].addActionListener(new ActionListener(){  
                     @Override
@@ -443,10 +448,11 @@ public class Gui extends javax.swing.JFrame {
                         buttons2[index].setEnabled(false);
                         if( "X".equals(oznaka)) oznaka = "O";
                         else oznaka = "X";
+                        System.out.println(buttons2[index].getClientProperty("id"));
                     }  
                 });
                 buttons3[i] = new JButton(" ");
-                buttons3[i].putClientProperty("id", i+1+30);
+                buttons3[i].putClientProperty("id", Integer.toString(2) + ',' + Integer.toString(i/4) + ',' + Integer.toString(i%4));
                 buttons3[i].setFocusable(false);
                 buttons3[i].addActionListener(new ActionListener(){  
                     @Override
@@ -455,10 +461,11 @@ public class Gui extends javax.swing.JFrame {
                         buttons3[index].setEnabled(false);
                         if( "X".equals(oznaka)) oznaka = "O";
                         else oznaka = "X";
+                        System.out.println(buttons3[index].getClientProperty("id"));
                     }  
                 });
                 buttons4[i] = new JButton(" ");
-                buttons4[i].putClientProperty("id", i+1+40);
+                buttons4[i].putClientProperty("id", Integer.toString(3) + ',' + Integer.toString(i/4) + ',' + Integer.toString(i%4));
                 buttons4[i].setFocusable(false);
                 buttons4[i].addActionListener(new ActionListener(){  
                     @Override
@@ -467,6 +474,7 @@ public class Gui extends javax.swing.JFrame {
                         buttons4[index].setEnabled(false);
                         if( "X".equals(oznaka)) oznaka = "O";
                         else oznaka = "X";
+                        System.out.println(buttons4[index].getClientProperty("id"));
                     }  
                 });
                 nivo1.add(buttons1[i]);

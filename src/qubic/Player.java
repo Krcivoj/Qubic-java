@@ -15,7 +15,7 @@ import java.util.Collections;
 public class Player {
         //oznaka igraca
         private char mName;
-        
+
         //algoritam min max
         private Pair<Integer, Move> minMax(Cube cube, ArrayList<Move> moves, char id, int alpha, int beta, int maxDepth)
         {
@@ -85,7 +85,7 @@ public class Player {
         //Konstruktor
         public Player(char id)
         {
-            mName=id;
+            mName = id;
         }
 
         //Funkcija vraca ime igraca
@@ -110,7 +110,7 @@ public class Player {
                 if(result.first==-500 || result.first==500)break;
             }
 
-            /*if(mName == 'O' && result.first > 0){
+            if(mName == 'O' && result.first > 0){
                 for(int i = 1; i <= cube.maxDepth(); i++){
                     result = minMax(cube, moves, 'X', alpha, beta, i);
                     if(result.first==-500 || result.first==500)break;
@@ -122,13 +122,14 @@ public class Player {
                     result = minMax(cube, moves, 'O', alpha, beta, i);
                     if(result.first==-500 || result.first==500)break;
                 }
-            }*/
+            }
 
-            System.out.println("Na redu je igrac: " + mName);
+            System.out.println("Na redu je igrac: (poziv iz playera)" + mName);
             
-            System.out.println("Hint: " + result.first + result.second);
+            //System.out.println("Hint: " + result.first + result.second);
 
             do{
+                
                 System.out.println("Odaberite potez:");
                 Scanner myInput = new Scanner( System.in );
                 String line = myInput.nextLine();
