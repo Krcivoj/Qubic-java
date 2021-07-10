@@ -27,7 +27,7 @@ public class Qubic {
         //Scanner myInput = new Scanner( System.in );
         //gameType = myInput.nextInt();
         //System.out.println("\n\n");
-        if(gameType==3){
+        if(gameType == 3){
             mCube= new Cube3();
             //System.out.println("----IGRA KRIZIC-KRUZIC U 3D NA 3X3X3 KOCKI ZAPOCINJE----\n");
         }
@@ -44,7 +44,7 @@ public class Qubic {
         Integer result;
         int playerOnMove = 0;
         
-        mCube.print();
+        //mCube.print();
         result = mCube.result();
         while(result == null){
             playerOnMove %= 2;

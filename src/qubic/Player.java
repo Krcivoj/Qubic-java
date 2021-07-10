@@ -125,6 +125,8 @@ public class Player {
             }*/
 
             System.out.println("Na redu je igrac: " + mName);
+            
+            gui.uputa.setText("Na redu je igrač oznake ");
             System.out.println("Hint: " + result.first + result.second);
 
             do{

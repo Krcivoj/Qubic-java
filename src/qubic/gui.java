@@ -63,6 +63,7 @@ public class gui extends javax.swing.JFrame {
         nova = new javax.swing.JMenu();
         statistika = new javax.swing.JMenu();
         ljestvica = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Igra QUBIC");
@@ -318,6 +319,11 @@ public class gui extends javax.swing.JFrame {
         ljestvica.setBorderPainted(true);
         menu.add(ljestvica);
 
+        jMenu1.setBackground(new java.awt.Color(0, 153, 102));
+        jMenu1.setForeground(new java.awt.Color(255, 255, 255));
+        jMenu1.setText("Upute");
+        menu.add(jMenu1);
+
         setJMenuBar(menu);
 
         pack();
@@ -327,6 +333,17 @@ public class gui extends javax.swing.JFrame {
         naslov.setText("Igra " + prvoIme.getText() + " vs " + drugoIme.getText() + " je započela!");
         String tip = vrsta.getSelectedItem().toString();
         uputa.setText(tip);
+        
+        //postavljanje igrača u par, prvi je X drugi O
+        Pair<String, String> igraci = new Pair<>();
+        if(znak.getSelectedItem().toString() == "X"){
+            igraci.first = prvoIme.getText();
+            igraci.second = drugoIme.getText();
+        }
+        else{
+            igraci.second = prvoIme.getText();
+            igraci.first = drugoIme.getText();
+        }
         
         //igra na 3x3x3
         if(tip == "3x3x3"){
@@ -381,6 +398,13 @@ public class gui extends javax.swing.JFrame {
                 nivo1.add(buttons1[i]);
                 nivo2.add(buttons2[i]);
                 nivo3.add(buttons3[i]);
+                
+                //pocetak igre 
+                Qubic igra = new Qubic(3);
+                Player pobjednik = igra.play();
+                //ispis s winner.id() ako je null je remi
+                
+                
             }
         }
         else{  //igra na 4x4x4
@@ -452,6 +476,8 @@ public class gui extends javax.swing.JFrame {
                 nivo3.add(buttons3[i]);
                 nivo4.add(buttons4[i]);
             }
+            //pocetak igre
+            Qubic igra = new Qubic(4);
         }
         
     }//GEN-LAST:event_kreniMouseClicked
@@ -479,6 +505,7 @@ public class gui extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JButton kreni;
     private javax.swing.JPanel lijevo;
     private javax.swing.JMenu ljestvica;
@@ -493,7 +520,7 @@ public class gui extends javax.swing.JFrame {
     private javax.swing.JMenu nova;
     private javax.swing.JTextField prvoIme;
     private javax.swing.JMenu statistika;
-    private javax.swing.JLabel uputa;
+    public javax.swing.JLabel uputa;
     private javax.swing.JComboBox<String> vrsta;
     private javax.swing.JComboBox<String> znak;
     // End of variables declaration//GEN-END:variables
