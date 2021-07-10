@@ -21,7 +21,6 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Nova igra"/>
-            <Property name="borderPainted" type="boolean" value="true"/>
           </Properties>
         </Menu>
         <Menu class="javax.swing.JMenu" name="statistika">
@@ -33,7 +32,6 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Statistika"/>
-            <Property name="borderPainted" type="boolean" value="true"/>
           </Properties>
         </Menu>
         <Menu class="javax.swing.JMenu" name="ljestvica">
@@ -45,7 +43,6 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Ljestvica"/>
-            <Property name="borderPainted" type="boolean" value="true"/>
           </Properties>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu1">

@@ -12,11 +12,12 @@ import java.util.Scanner;
 public class Qubic {
     //kocka na kojoj se igra
     private Cube mCube;
+    private Gui gui;
     //polje od dva igrača
     private Player[] mPlayers = { new Player('X'), new Player('O')};
     
     //stvara uvijete za početak igre
-    public Qubic(int gameType)
+    public Qubic(int gameType, Gui app)
     {
         //System.out.println("Odaberite verziju igre:");
         //System.out.println("Za igru na kocki 3X3X3 odaberite 3");
@@ -27,6 +28,7 @@ public class Qubic {
         //Scanner myInput = new Scanner( System.in );
         //gameType = myInput.nextInt();
         //System.out.println("\n\n");
+        gui = app;
         if(gameType == 3){
             mCube= new Cube3();
             //System.out.println("----IGRA KRIZIC-KRUZIC U 3D NA 3X3X3 KOCKI ZAPOCINJE----\n");
@@ -48,12 +50,15 @@ public class Qubic {
         result = mCube.result();
         while(result == null){
             playerOnMove %= 2;
+            gui.uputa.setText("Na redu je igrač oznake ");
+            gui.uputa.revalidate();
+            gui.uputa.repaint();
             mPlayers[playerOnMove].play(mCube);
             mCube.print();
             playerOnMove++;
             result = mCube.result();
         }
-        
+        System.out.print("GOTOVOOO!");
         if(result == 500)
             winner = mPlayers[0];
         

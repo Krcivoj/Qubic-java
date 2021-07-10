@@ -16,12 +16,12 @@ import javax.swing.JPanel;
  *
  * @author Nela
  */
-public class gui extends javax.swing.JFrame {
+public class Gui extends javax.swing.JFrame {
     static String oznaka = "X";
     /**
      * Creates new form gui
      */
-    public gui() {
+    public Gui() {
         initComponents();
         nivo1.setVisible(false);
         nivo2.setVisible(false);
@@ -304,19 +304,16 @@ public class gui extends javax.swing.JFrame {
         nova.setBackground(new java.awt.Color(0, 153, 102));
         nova.setForeground(new java.awt.Color(255, 255, 255));
         nova.setText("Nova igra");
-        nova.setBorderPainted(true);
         menu.add(nova);
 
         statistika.setBackground(new java.awt.Color(0, 153, 102));
         statistika.setForeground(new java.awt.Color(255, 255, 255));
         statistika.setText("Statistika");
-        statistika.setBorderPainted(true);
         menu.add(statistika);
 
         ljestvica.setBackground(new java.awt.Color(0, 153, 102));
         ljestvica.setForeground(new java.awt.Color(255, 255, 255));
         ljestvica.setText("Ljestvica");
-        ljestvica.setBorderPainted(true);
         menu.add(ljestvica);
 
         jMenu1.setBackground(new java.awt.Color(0, 153, 102));
@@ -400,8 +397,9 @@ public class gui extends javax.swing.JFrame {
                 nivo3.add(buttons3[i]);
                 
                 //pocetak igre 
-                Qubic igra = new Qubic(3);
+                Qubic igra = new Qubic(3, this);
                 Player pobjednik = igra.play();
+                System.out.print("Vani sam");
                 //ispis s winner.id() ako je null je remi
                 
                 
@@ -477,7 +475,7 @@ public class gui extends javax.swing.JFrame {
                 nivo4.add(buttons4[i]);
             }
             //pocetak igre
-            Qubic igra = new Qubic(4);
+            Qubic igra = new Qubic(4, this);
         }
         
     }//GEN-LAST:event_kreniMouseClicked
@@ -491,7 +489,7 @@ public class gui extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new gui().setVisible(true);
+                new Gui().setVisible(true);
             }
         });
     }

@@ -15,7 +15,7 @@ public class main {
      */
     //Application logic
     public static void main(String[] args) {
-        gui app = new gui();
+        Gui app = new Gui();
         app.pozovi();
         /**
         System.out.println("------IGRA QUBIC ZAPOCINJE------\n");
