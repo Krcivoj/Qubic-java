@@ -398,7 +398,7 @@ public class Gui extends javax.swing.JFrame {
                 
                 //pocetak igre 
                 Qubic igra = new Qubic(3, this);
-                Player pobjednik = igra.play();
+                //Player pobjednik = igra.play();
                 System.out.print("Vani sam");
                 //ispis s winner.id() ako je null je remi
                 

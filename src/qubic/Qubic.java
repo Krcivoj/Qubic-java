@@ -29,6 +29,7 @@ public class Qubic {
         //gameType = myInput.nextInt();
         //System.out.println("\n\n");
         gui = app;
+        gui.uputa.setText("Neki tekst");
         if(gameType == 3){
             mCube= new Cube3();
             //System.out.println("----IGRA KRIZIC-KRUZIC U 3D NA 3X3X3 KOCKI ZAPOCINJE----\n");
