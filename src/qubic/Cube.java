@@ -8,7 +8,7 @@ package qubic;
 import java.util.ArrayList;
 /**
  *
- * @author User
+ * @author Krci
  */
 public interface Cube {
     //cisti kocku
@@ -29,4 +29,6 @@ public interface Cube {
     public int maxDepth();
     //iscrtava kocku u terminalu
     public void print();
+    //klonira kocku
+    public Cube clone();
 }

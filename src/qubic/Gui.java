@@ -20,7 +20,12 @@ import javax.swing.JPanel;
 public class Gui extends javax.swing.JFrame {
     static String oznaka = "X";
     static Qubic igra;
-    static Move pomoc = new Move(1,1,1);
+    static Move pomoc;
+    static JButton hint;
+    static JButton hintGrid;
+    //postavljanje igrača, prvi je X drugi O
+    static Pair<Player, Player> igraci = new Pair<>(new Player('X'), new Player('O'));
+    static Thread racunaloThread;
     /**
      * Creates new form gui
      */
@@ -345,30 +350,29 @@ public class Gui extends javax.swing.JFrame {
         //dodavanje grida
         forma.setLayout(new GridLayout(2,1));
         JLabel hint_label = new JLabel();
-        hint_label.setText("Za hint potez kliknite gumb i potez će se odigrati umjesto Vas!");
+        hint_label.setText("Za hint potez kliknite gumb.");
         forma.add(hint_label);
-        JButton hint = new JButton();
+        hint = new JButton();
         forma.add(hint);
-        hint.setBackground(new java.awt.Color(0, 153, 102));
+        hint.setEnabled(false);
         hint.setForeground(new java.awt.Color(255, 255, 255));
         hint.setText("Hint!");
         hint.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         hint.setFocusPainted(false);
         
-        //postavljanje igrača u par, prvi je X drugi O
-        Pair<String, String> igraci = new Pair<>();
+        
         if(znak.getSelectedItem().toString() == "X"){
-            igraci.first = prvoIme.getText();
-            igraci.second = drugoIme.getText();
+            igraci.first.name = prvoIme.getText();
+            igraci.second.name = drugoIme.getText();
         }
         else{
-            igraci.second = prvoIme.getText();
-            igraci.first = drugoIme.getText();
+            igraci.second.name = prvoIme.getText();
+            igraci.first.name = drugoIme.getText();
         }
-        naslov.setText("Igra " + igraci.first + "(X) vs " + igraci.second + "(O) je započela!");
+        naslov.setText("Igra " + igraci.first.name + "(X) vs " + igraci.second.name + "(O) je započela!");
         String tip = vrsta.getSelectedItem().toString();
-        if(oznaka == "X") uputa.setText("Na potezu igrač " + igraci.first);
-        else uputa.setText("Na potezu igrač " + igraci.second);
+        if(oznaka == "X") uputa.setText("Na potezu igrač " + igraci.first.name);
+        else uputa.setText("Na potezu igrač " + igraci.second.name);
         
         
         //igra na 3x3x3
@@ -390,15 +394,25 @@ public class Gui extends javax.swing.JFrame {
                 buttons1[i].setFocusable(false);
                 buttons1[i].addActionListener(new ActionListener(){  
                     @Override
-                    public void actionPerformed(ActionEvent e){  
+                    public void actionPerformed(ActionEvent e){ 
+                        cekajRacunalo(buttons1, buttons2, buttons3);
+                        igra.hintThread.interrupt();
+                        hideHint();
                         buttons1[index].setText(oznaka);
                         buttons1[index].setEnabled(false);
+                        //System.out.println(buttons1[index].getClientProperty("id"));
+                        if(oznaka == "X") {
+                            uputa.setText("Na potezu igrač " + igraci.second.name);
+                            igra.player = igraci.first;
+                        }
+                        else {
+                            uputa.setText("Na potezu igrač " + igraci.first.name);
+                            igra.player = igraci.second;
+                        }
+                        igra.move = new Move(buttons1[index].getClientProperty("id").toString());
                         if( "X".equals(oznaka)) oznaka = "O";
                         else oznaka = "X";
-                        System.out.println(buttons1[index].getClientProperty("id"));
-                        igra.move = new Move(buttons1[index].getClientProperty("id").toString());
-                        if(oznaka == "X") uputa.setText("Na potezu igrač " + igraci.first);
-                        else uputa.setText("Na potezu igrač " + igraci.second);
+                        racunalo(buttons1, buttons2, buttons3);
                     } 
                 });
                 buttons2[i] = new JButton(" ");
@@ -406,15 +420,25 @@ public class Gui extends javax.swing.JFrame {
                 buttons2[i].setFocusable(false);
                 buttons2[i].addActionListener(new ActionListener(){  
                     @Override
-                    public void actionPerformed(ActionEvent e){  
+                    public void actionPerformed(ActionEvent e){
+                        cekajRacunalo(buttons1, buttons2, buttons3);
+                        igra.hintThread.interrupt();
+                        hideHint();
                         buttons2[index].setText(oznaka); 
                         buttons2[index].setEnabled(false);
+                        //System.out.println(buttons2[index].getClientProperty("id"));
+                        if(oznaka == "X") {
+                            uputa.setText("Na potezu igrač " + igraci.second.name);
+                            igra.player = igraci.first;
+                        }
+                        else {
+                            uputa.setText("Na potezu igrač " + igraci.first.name);
+                            igra.player = igraci.second;
+                        }
+                        igra.move = new Move(buttons2[index].getClientProperty("id").toString());
                         if( "X".equals(oznaka)) oznaka = "O";
                         else oznaka = "X";
-                        System.out.println(buttons2[index].getClientProperty("id"));
-                        igra.move = new Move(buttons2[index].getClientProperty("id").toString());
-                        if(oznaka == "X") uputa.setText("Na potezu igrač " + igraci.first);
-                        else uputa.setText("Na potezu igrač " + igraci.second);
+                        racunalo(buttons1, buttons2, buttons3);
                     }  
                 });
                 buttons3[i] = new JButton(" ");
@@ -422,23 +446,62 @@ public class Gui extends javax.swing.JFrame {
                 buttons3[i].setFocusable(false);
                 buttons3[i].addActionListener(new ActionListener(){  
                     @Override
-                    public void actionPerformed(ActionEvent e){  
+                    public void actionPerformed(ActionEvent e){
+                        cekajRacunalo(buttons1, buttons2, buttons3);
+                        igra.hintThread.interrupt();
+                        hideHint();
                         buttons3[index].setText(oznaka);
                         buttons3[index].setEnabled(false);
+                        //System.out.println(buttons3[index].getClientProperty("id"));
+                        if(oznaka == "X") {
+                            uputa.setText("Na potezu igrač " + igraci.second.name);
+                            igra.player = igraci.first;
+                        }
+                        else {
+                            uputa.setText("Na potezu igrač " + igraci.first.name);
+                            igra.player = igraci.second;
+                        }
+                        igra.move = new Move(buttons3[index].getClientProperty("id").toString());
                         if( "X".equals(oznaka)) oznaka = "O";
                         else oznaka = "X";
-                        System.out.println(buttons3[index].getClientProperty("id"));
-                        igra.move = new Move(buttons3[index].getClientProperty("id").toString());
-                        if(oznaka == "X") uputa.setText("Na potezu igrač " + igraci.first);
-                        else uputa.setText("Na potezu igrač " + igraci.second);
+                        racunalo(buttons1, buttons2, buttons3);
                     }  
                 });
                 nivo1.add(buttons1[i]);
                 nivo2.add(buttons2[i]);
                 nivo3.add(buttons3[i]);
-                
                
             }
+            
+            //akcija za hint
+            hint.addActionListener(new ActionListener(){  
+                @Override
+                public void actionPerformed(ActionEvent e){
+                    for(int i = 0; i < 9; i++){
+                        if(buttons1[i].getClientProperty("id").toString().equals(pomoc.toString())){
+                            buttons1[i].setBackground(new java.awt.Color(0, 153, 102));
+                            hintGrid = buttons1[i];
+                            hint.setEnabled(false);
+                            hintGrid.setEnabled(true);
+                            break;
+                        }
+                        if(buttons2[i].getClientProperty("id").toString().equals(pomoc.toString())){
+                            buttons2[i].setBackground(new java.awt.Color(0, 153, 102));
+                            hintGrid = buttons2[i];
+                            hint.setEnabled(false);
+                            hintGrid.setEnabled(true);
+                            break;
+                        }
+                        if(buttons3[i].getClientProperty("id").toString().equals(pomoc.toString())){
+                            buttons3[i].setBackground(new java.awt.Color(0, 153, 102));
+                            hintGrid = buttons3[i];
+                            hint.setEnabled(false);
+                            hintGrid.setEnabled(true);
+                            break;
+                        }
+                    }                  
+                } 
+            });
             //pocetak igre 
             igra = new Qubic(3, this);
                 
@@ -465,15 +528,32 @@ public class Gui extends javax.swing.JFrame {
                 buttons1[i].setFocusable(false);
                 buttons1[i].addActionListener(new ActionListener(){  
                     @Override
-                    public void actionPerformed(ActionEvent e){  
+                    public void actionPerformed(ActionEvent e){
+                        try
+                        {
+                            racunaloThread.join();
+                        }
+                        catch(InterruptedException ex)
+                        {
+                            Thread.currentThread().interrupt();
+                        }
+                        igra.hintThread.interrupt();
+                        hideHint();
                         buttons1[index].setText(oznaka);
                         buttons1[index].setEnabled(false);
+                        //System.out.println(buttons1[index].getClientProperty("id"));
+                        if(oznaka == "X") {
+                            uputa.setText("Na potezu igrač " + igraci.second.name);
+                            igra.player = igraci.first;
+                        }
+                        else {
+                            uputa.setText("Na potezu igrač " + igraci.first.name);
+                            igra.player = igraci.second;
+                        }
+                        igra.move = new Move(buttons1[index].getClientProperty("id").toString());
                         if( "X".equals(oznaka)) oznaka = "O";
                         else oznaka = "X";
-                        System.out.println(buttons1[index].getClientProperty("id"));
-                        igra.move = new Move(buttons1[index].getClientProperty("id").toString());
-                        if(oznaka == "X") uputa.setText("Na potezu igrač " + igraci.first);
-                        else uputa.setText("Na potezu igrač " + igraci.second);
+                        racunalo(buttons1, buttons2, buttons3, buttons4);
                     }  
                 });
                 buttons2[i] = new JButton(" ");
@@ -481,15 +561,24 @@ public class Gui extends javax.swing.JFrame {
                 buttons2[i].setFocusable(false);
                 buttons2[i].addActionListener(new ActionListener(){  
                     @Override
-                    public void actionPerformed(ActionEvent e){  
+                    public void actionPerformed(ActionEvent e){
+                        igra.hintThread.interrupt();
+                        hideHint();
                         buttons2[index].setText(oznaka);  
                         buttons2[index].setEnabled(false);
+                        //System.out.println(buttons2[index].getClientProperty("id"));
+                        if(oznaka == "X") {
+                            uputa.setText("Na potezu igrač " + igraci.second.name);
+                            igra.player = igraci.first;
+                        }
+                        else {
+                            uputa.setText("Na potezu igrač " + igraci.first.name);
+                            igra.player = igraci.second;
+                        }
+                        igra.move = new Move(buttons2[index].getClientProperty("id").toString());
                         if( "X".equals(oznaka)) oznaka = "O";
                         else oznaka = "X";
-                        System.out.println(buttons2[index].getClientProperty("id"));
-                        igra.move = new Move(buttons2[index].getClientProperty("id").toString());
-                        if(oznaka == "X") uputa.setText("Na potezu igrač " + igraci.first);
-                        else uputa.setText("Na potezu igrač " + igraci.second);
+                        racunalo(buttons1, buttons2, buttons3, buttons4);
                     }  
                 });
                 buttons3[i] = new JButton(" ");
@@ -497,15 +586,24 @@ public class Gui extends javax.swing.JFrame {
                 buttons3[i].setFocusable(false);
                 buttons3[i].addActionListener(new ActionListener(){  
                     @Override
-                    public void actionPerformed(ActionEvent e){  
+                    public void actionPerformed(ActionEvent e){ 
+                        igra.hintThread.interrupt();
+                        hideHint();
                         buttons3[index].setText(oznaka);
                         buttons3[index].setEnabled(false);
+                        //System.out.println(buttons3[index].getClientProperty("id"));
+                        if(oznaka == "X") {
+                            uputa.setText("Na potezu igrač " + igraci.second.name);
+                            igra.player = igraci.first;
+                        }
+                        else {
+                            uputa.setText("Na potezu igrač " + igraci.first.name);
+                            igra.player = igraci.second;
+                        }
+                        igra.move = new Move(buttons3[index].getClientProperty("id").toString());
                         if( "X".equals(oznaka)) oznaka = "O";
                         else oznaka = "X";
-                        System.out.println(buttons3[index].getClientProperty("id"));
-                        igra.move = new Move(buttons3[index].getClientProperty("id").toString());
-                        if(oznaka == "X") uputa.setText("Na potezu igrač " + igraci.first);
-                        else uputa.setText("Na potezu igrač " + igraci.second);
+                        racunalo(buttons1, buttons2, buttons3, buttons4);
                     }  
                 });
                 buttons4[i] = new JButton(" ");
@@ -513,15 +611,24 @@ public class Gui extends javax.swing.JFrame {
                 buttons4[i].setFocusable(false);
                 buttons4[i].addActionListener(new ActionListener(){  
                     @Override
-                    public void actionPerformed(ActionEvent e){  
+                    public void actionPerformed(ActionEvent e){
+                        igra.hintThread.interrupt();
+                        hideHint();
                         buttons4[index].setText(oznaka);
                         buttons4[index].setEnabled(false);
+                        //System.out.println(buttons4[index].getClientProperty("id"));
+                        if(oznaka == "X") {
+                            uputa.setText("Na potezu igrač " + igraci.second.name);
+                            igra.player = igraci.first;
+                        }
+                        else {
+                            uputa.setText("Na potezu igrač " + igraci.first.name);
+                            igra.player = igraci.second;
+                        }
+                        igra.move = new Move(buttons4[index].getClientProperty("id").toString());
                         if( "X".equals(oznaka)) oznaka = "O";
                         else oznaka = "X";
-                        System.out.println(buttons4[index].getClientProperty("id"));
-                        igra.move = new Move(buttons4[index].getClientProperty("id").toString());
-                        if(oznaka == "X") uputa.setText("Na potezu igrač " + igraci.first);
-                        else uputa.setText("Na potezu igrač " + igraci.second);
+                        racunalo(buttons1, buttons2, buttons3, buttons4);
                     }  
                 });
                 nivo1.add(buttons1[i]);
@@ -529,12 +636,93 @@ public class Gui extends javax.swing.JFrame {
                 nivo3.add(buttons3[i]);
                 nivo4.add(buttons4[i]);
             }
+            
+            //akcija za hint
+            hint.addActionListener(new ActionListener(){  
+                @Override
+                public void actionPerformed(ActionEvent e){
+                    for(int i = 0; i < 9; i++){
+                        if(buttons1[i].getClientProperty("id").toString().equals(pomoc.toString())){
+                            buttons1[i].setBackground(new java.awt.Color(0, 153, 102));
+                            hintGrid = buttons1[i];
+                            hint.setEnabled(false);
+                            hintGrid.setEnabled(true);
+                            break;
+                        }
+                        if(buttons2[i].getClientProperty("id").toString().equals(pomoc.toString())){
+                            buttons2[i].setBackground(new java.awt.Color(0, 153, 102));
+                            hintGrid = buttons2[i];
+                            hint.setEnabled(false);
+                            hintGrid.setEnabled(true);
+                            break;
+                        }
+                        if(buttons3[i].getClientProperty("id").toString().equals(pomoc.toString())){
+                            buttons3[i].setBackground(new java.awt.Color(0, 153, 102));
+                            hintGrid = buttons3[i];
+                            hint.setEnabled(false);
+                            hintGrid.setEnabled(true);
+                            break;
+                        }
+                        if(buttons4[i].getClientProperty("id").toString().equals(pomoc.toString())){
+                            buttons4[i].setBackground(new java.awt.Color(0, 153, 102));
+                            hintGrid = buttons4[i];
+                            hint.setEnabled(false);
+                            hintGrid.setEnabled(true);
+                            break;
+                        }
+                    }                  
+                } 
+            });
+            
             //pocetak igre
             igra = new Qubic(4, this);
         }
         
     }//GEN-LAST:event_kreniMouseClicked
 
+    public void setHint(Move move){
+        pomoc = move;
+        hint.setEnabled(true);
+        hint.setBackground(new java.awt.Color(0, 153, 102));
+        
+    }
+    
+    public void hideHint(){
+        pomoc = null;
+        hint.setEnabled(false);
+        hint.setBackground(null);
+        if(hintGrid != null){
+            hintGrid.setBackground(null);
+            hintGrid = null;
+        }
+    }
+    
+    private void racunalo(JButton[]... buttons){
+        if((oznaka == "X" && igraci.first.name.equals("racunalo")) ||
+               (oznaka == "O" && igraci.second.name.equals("racunalo")) ){
+            for(JButton[] button : buttons){
+                for(int i = 0; i < 9; i++){
+                    button[i].setEnabled(false);
+                }
+            }
+            System.out.println("racunalo");
+            racunaloThread = new Thread(new Computer(this));
+            racunaloThread.start();
+        }
+    }
+    
+    private void cekajRacunalo(JButton[]... buttons){
+
+        //if((oznaka == "X" && igraci.first.name.equals("racunalo")) ||
+        //       (oznaka == "O" && igraci.second.name.equals("racunalo")) ){
+            System.out.println("drugo");
+            for(JButton[] button : buttons){
+                for(int i = 0; i < 9; i++){
+                    if(button[i].getText().equals(" ") )button[i].setEnabled(true);
+                }
+         //   }
+        }
+    }
     /**
      * @param args the command line arguments
      */

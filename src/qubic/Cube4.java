@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author User
+ * @author Krci
  */
 public class Cube4 implements Cube {
     //prvi indeks oznacava nivo, drugi redak i treći stupac
@@ -64,6 +64,15 @@ public class Cube4 implements Cube {
         public Cube4()
         {
             clear();
+        }
+        
+        public Cube4(int number, char[][][] old)
+        {
+            mNumber=number;
+            for(int i=0; i<4; i++)
+                for(int j=0; j<4; j++)
+                    for(int k=0; k<4; k++)
+                        cube[i][j][k]=old[i][j][k];
         }
         //cisti kocku
         public void clear()
@@ -489,6 +498,11 @@ public class Cube4 implements Cube {
              " / " + cube[3][3][2] + " / " + cube[3][3][3] + "|/");
             //linija
             System.out.println("|/___/___/___/___|");
+        }
+         
+        @Override
+        public Cube clone(){
+            return new Cube4(mNumber,cube);
         }
     
 }

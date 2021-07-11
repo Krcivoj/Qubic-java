@@ -7,15 +7,16 @@ package qubic;
 import java.util.Scanner;
 /**
  *
- * @author User
+ * @author Krci
  */
 public class Qubic {
     public Move move;
     //kocka na kojoj se igra
     private Cube mCube;
     private Gui gui;
+    public Thread hintThread;
     //polje od dva igrača
-    private Player[] mPlayers = { new Player('X'), new Player('O')};
+    public Player player = gui.igraci.first;
     
     //stvara uvijete za početak igre
     public Qubic(int gameType, Gui app)
@@ -51,10 +52,10 @@ public class Qubic {
         //mCube.print();
         result = mCube.result();
         while(result == null){
-            playerOnMove %= 2;
-            //gui.uputa.setText("Na redu je igrač oznake ");
-            //gui.uputa.revalidate();
-            //gui.uputa.repaint();
+            playerOnMove %= 2; 
+            Hint hint = new Hint(mCube.clone(), player, gui);
+            hintThread = new Thread(hint);  
+            hintThread.start();
             while(move == null){
                 try
                 {
@@ -65,17 +66,18 @@ public class Qubic {
                     Thread.currentThread().interrupt();
                 }
             }
-            mPlayers[playerOnMove].play(mCube, move);
+            //mPlayers[playerOnMove].play(mCube, move);
+            mCube.play(move,  player.id());
             move = null;
             mCube.print();
             playerOnMove++;
             result = mCube.result();
         }
         if(result == 500)
-            winner = mPlayers[0];
+            winner = gui.igraci.first;
         
         else if (result == -500)
-            winner = mPlayers[1];
+            winner = gui.igraci.second;
         return winner;
     }   
 }

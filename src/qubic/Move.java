@@ -7,7 +7,7 @@ package qubic;
 
 /**
  *
- * @author User
+ * @author Krci
  */
 public class Move {
     private int mLevel;
@@ -42,6 +42,6 @@ public class Move {
     //sluzi za ispis
     public String toString()
     {
-        return "Level: " + mLevel + ", Row: " + mRow + ", Column: " + mColumn;
+        return mLevel + "," + mRow + "," + mColumn;
     }
 }

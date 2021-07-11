@@ -10,11 +10,12 @@ import java.util.Scanner;
 import java.util.Collections;
 /**
  *
- * @author User
+ * @author Kric
  */
 public class Player {
         //oznaka igraca
-        private char mName;
+        private char id;
+        public String name;
 
         //algoritam min max
         private Pair<Integer, Move> minMax(Cube cube, ArrayList<Move> moves, char id, int alpha, int beta, int maxDepth)
@@ -85,48 +86,51 @@ public class Player {
         //Konstruktor
         public Player(char id)
         {
-            mName = id;
+            this.id = id;
         }
 
         //Funkcija vraca ime igraca
         public char id()
         {
-            return mName;
+            return id;
         }
         
-        //Funkcija kojom se izvrsava potez igraca
-        public void play(Cube cube, Move move)
-        {
+        //Funkcija vraća optimalni potez
+        public Move hint(Cube cube){
             Pair<Integer, Move> result = new Pair<>();
             ArrayList<Move> moves = cube.generate_moves();
             Collections.shuffle(moves);
 
-            /**int alpha = -1000;
+            int alpha = -1000;
             int beta = 1000;
             for(int i = 1; i <= cube.maxDepth(); i++){
-                result = minMax(cube, moves, mName, alpha, beta, i);
+                result = minMax(cube, moves, id, alpha, beta, i);
                 //System.out.println(i + "    " + result.first);
                 if(result.first==-500 || result.first==500)break;
             }
 
-            if(mName == 'O' && result.first > 0){
+            if(id == 'O' && result.first > 0){
                 for(int i = 1; i <= cube.maxDepth(); i++){
                     result = minMax(cube, moves, 'X', alpha, beta, i);
                     if(result.first==-500 || result.first==500)break;
                 }
             }
 
-            else if(mName == 'X' && result.first < 0){
+            else if(id == 'X' && result.first < 0){
                 for(int i = 1; i <= cube.maxDepth(); i++){
                     result = minMax(cube, moves, 'O', alpha, beta, i);
                     if(result.first==-500 || result.first==500)break;
                 }
             }
-
-            System.out.println("Na redu je igrac: (poziv iz playera)" + mName);
             
-            System.out.println("Hint: " + result.first + result.second);**/
+            return result.second;
+        }
+        
+        //Funkcija kojom se izvrsava potez igraca
+        /**public void play(Cube cube, Move move)
+        {
+            
 
             cube.play(move,mName);
-        }
+        }**/
 }

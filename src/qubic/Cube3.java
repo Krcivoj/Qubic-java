@@ -65,6 +65,15 @@ public class Cube3 implements Cube{
         {
             clear();
         }
+        
+        public Cube3(int number, char[][][] old)
+        {
+            mNumber=number;
+            for(int i=0; i<3; i++)
+                for(int j=0; j<3; j++)
+                    for(int k=0; k<3; k++)
+                        cube[i][j][k]= old[i][j][k];
+        }
         //cisti kocku
         @Override
         public void clear()
@@ -437,5 +446,10 @@ public class Cube3 implements Cube{
             cube[2][2][2] + "|/");
             //linija
             System.out.println("|/___/___/___|");
+        }
+        
+        @Override
+        public Cube clone(){
+            return new Cube3(mNumber,cube);
         }
 }
