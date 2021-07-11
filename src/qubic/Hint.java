@@ -23,8 +23,15 @@ public class Hint implements Runnable{
     @Override 
     public void run () {
         Move hint = player.hint(cube);
-        
-        gui.setHint(hint);
+        try
+        {
+            Thread.sleep(10);
+            gui.setHint(hint);
+        }
+        catch(InterruptedException ex)
+        {
+            Thread.currentThread().interrupt();
+        }
     }
     
 }
