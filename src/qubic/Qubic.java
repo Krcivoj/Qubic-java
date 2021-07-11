@@ -5,6 +5,9 @@
  */
 package qubic;
 import java.util.Scanner;
+import static qubic.Gui.igra;
+import static qubic.Gui.igraci;
+import static qubic.Gui.oznaka;
 /**
  *
  * @author Krci
@@ -31,7 +34,6 @@ public class Qubic {
         //gameType = myInput.nextInt();
         //System.out.println("\n\n");
         gui = app;
-        //gui.uputa.setText("Neki tekst");
         if(gameType == 3){
             mCube= new Cube3();
             //System.out.println("----IGRA KRIZIC-KRUZIC U 3D NA 3X3X3 KOCKI ZAPOCINJE----\n");
@@ -52,8 +54,7 @@ public class Qubic {
         //mCube.print();
         result = mCube.result();
         while(result == null){
-            playerOnMove %= 2; 
-            Hint hint = new Hint(mCube.clone(), player, gui);
+            Hint hint = new Hint(mCube.clone(), gui.igrac, gui);
             hintThread = new Thread(hint);  
             hintThread.start();
             while(move == null){

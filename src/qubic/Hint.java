@@ -22,7 +22,9 @@ public class Hint implements Runnable{
     
     @Override 
     public void run () {
-        gui.setHint(player.hint(cube));
+        Move hint = player.hint(cube);
+        
+        gui.setHint(hint);
     }
     
 }

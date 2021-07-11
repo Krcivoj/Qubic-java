@@ -20,7 +20,7 @@ public class Computer implements Runnable {
     public void run () {
         try
         {
-            Thread.sleep(10);
+            Thread.sleep(3000);
         }
         catch(InterruptedException ex)
         {
