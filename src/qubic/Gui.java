@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -95,7 +96,7 @@ public class Gui extends javax.swing.JFrame {
         naslovniLayout.setVerticalGroup(
             naslovniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(naslovniLayout.createSequentialGroup()
-                .addContainerGap(106, Short.MAX_VALUE)
+                .addContainerGap(117, Short.MAX_VALUE)
                 .addComponent(naslov)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(uputa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -106,6 +107,7 @@ public class Gui extends javax.swing.JFrame {
 
         forma.setBackground(new java.awt.Color(186, 235, 206));
         forma.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        forma.setMinimumSize(new java.awt.Dimension(450, 350));
 
         jLabel3.setFont(new java.awt.Font("Century Schoolbook", 1, 14)); // NOI18N
         jLabel3.setText("Vaše ime:");
@@ -114,7 +116,7 @@ public class Gui extends javax.swing.JFrame {
         jLabel4.setText("Vrsta igre(ploče):");
 
         jLabel5.setFont(new java.awt.Font("Century Schoolbook", 1, 14)); // NOI18N
-        jLabel5.setText("Ime drugog igrača:");
+        jLabel5.setText("Ime protivnika:");
 
         jLabel6.setFont(new java.awt.Font("Century Schoolbook", 1, 14)); // NOI18N
         jLabel6.setText("Znak prvog igrača:");
@@ -123,6 +125,7 @@ public class Gui extends javax.swing.JFrame {
         kreni.setForeground(new java.awt.Color(255, 255, 255));
         kreni.setText("Pokreni!");
         kreni.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        kreni.setFocusPainted(false);
         kreni.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 kreniMouseClicked(evt);
@@ -169,7 +172,7 @@ public class Gui extends javax.swing.JFrame {
                 .addGroup(formaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(vrsta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(formaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(drugoIme, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
@@ -192,18 +195,18 @@ public class Gui extends javax.swing.JFrame {
             .addGroup(formaPanelLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(formaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(forma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(napomena, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE))
-                .addContainerGap(88, Short.MAX_VALUE))
+                    .addComponent(napomena, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+                    .addComponent(forma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         formaPanelLayout.setVerticalGroup(
             formaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(formaPanelLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(forma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68)
+                .addGap(69, 69, 69)
                 .addComponent(napomena)
-                .addContainerGap(207, Short.MAX_VALUE))
+                .addContainerGap(213, Short.MAX_VALUE))
         );
 
         lijevo.add(formaPanel);
@@ -295,7 +298,7 @@ public class Gui extends javax.swing.JFrame {
                 .addComponent(nivo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nivo4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         getContentPane().add(desno);
@@ -329,9 +332,28 @@ public class Gui extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void kreniMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kreniMouseClicked
-        naslov.setText("Igra " + prvoIme.getText() + " vs " + drugoIme.getText() + " je započela!");
-        String tip = vrsta.getSelectedItem().toString();
-        uputa.setText(tip);
+        //kreni.setEnabled(true);  
+        //maknut cu sve iz zelenog
+         //lista svih podkomponenti
+        Component[] componentList = forma.getComponents();
+        for(Component c : componentList){
+            forma.remove(c);
+        }
+        forma.revalidate();
+        forma.repaint();
+        
+        //dodavanje grida
+        forma.setLayout(new GridLayout(2,1));
+        JLabel hint_label = new JLabel();
+        hint_label.setText("Za hint potez kliknite gumb i potez će se odigrati umjesto Vas!");
+        forma.add(hint_label);
+        JButton hint = new JButton();
+        forma.add(hint);
+        hint.setBackground(new java.awt.Color(0, 153, 102));
+        hint.setForeground(new java.awt.Color(255, 255, 255));
+        hint.setText("Hint!");
+        hint.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        hint.setFocusPainted(false);
         
         //postavljanje igrača u par, prvi je X drugi O
         Pair<String, String> igraci = new Pair<>();
@@ -343,6 +365,11 @@ public class Gui extends javax.swing.JFrame {
             igraci.second = prvoIme.getText();
             igraci.first = drugoIme.getText();
         }
+        naslov.setText("Igra " + igraci.first + "(X) vs " + igraci.second + "(O) je započela!");
+        String tip = vrsta.getSelectedItem().toString();
+        if(oznaka == "X") uputa.setText("Na potezu igrač " + igraci.first);
+        else uputa.setText("Na potezu igrač " + igraci.second);
+        
         
         //igra na 3x3x3
         if(tip == "3x3x3"){
@@ -370,6 +397,8 @@ public class Gui extends javax.swing.JFrame {
                         else oznaka = "X";
                         System.out.println(buttons1[index].getClientProperty("id"));
                         igra.move = new Move(buttons1[index].getClientProperty("id").toString());
+                        if(oznaka == "X") uputa.setText("Na potezu igrač " + igraci.first);
+                        else uputa.setText("Na potezu igrač " + igraci.second);
                     } 
                 });
                 buttons2[i] = new JButton(" ");
@@ -384,6 +413,8 @@ public class Gui extends javax.swing.JFrame {
                         else oznaka = "X";
                         System.out.println(buttons2[index].getClientProperty("id"));
                         igra.move = new Move(buttons2[index].getClientProperty("id").toString());
+                        if(oznaka == "X") uputa.setText("Na potezu igrač " + igraci.first);
+                        else uputa.setText("Na potezu igrač " + igraci.second);
                     }  
                 });
                 buttons3[i] = new JButton(" ");
@@ -398,6 +429,8 @@ public class Gui extends javax.swing.JFrame {
                         else oznaka = "X";
                         System.out.println(buttons3[index].getClientProperty("id"));
                         igra.move = new Move(buttons3[index].getClientProperty("id").toString());
+                        if(oznaka == "X") uputa.setText("Na potezu igrač " + igraci.first);
+                        else uputa.setText("Na potezu igrač " + igraci.second);
                     }  
                 });
                 nivo1.add(buttons1[i]);
@@ -439,6 +472,8 @@ public class Gui extends javax.swing.JFrame {
                         else oznaka = "X";
                         System.out.println(buttons1[index].getClientProperty("id"));
                         igra.move = new Move(buttons1[index].getClientProperty("id").toString());
+                        if(oznaka == "X") uputa.setText("Na potezu igrač " + igraci.first);
+                        else uputa.setText("Na potezu igrač " + igraci.second);
                     }  
                 });
                 buttons2[i] = new JButton(" ");
@@ -453,6 +488,8 @@ public class Gui extends javax.swing.JFrame {
                         else oznaka = "X";
                         System.out.println(buttons2[index].getClientProperty("id"));
                         igra.move = new Move(buttons2[index].getClientProperty("id").toString());
+                        if(oznaka == "X") uputa.setText("Na potezu igrač " + igraci.first);
+                        else uputa.setText("Na potezu igrač " + igraci.second);
                     }  
                 });
                 buttons3[i] = new JButton(" ");
@@ -467,6 +504,8 @@ public class Gui extends javax.swing.JFrame {
                         else oznaka = "X";
                         System.out.println(buttons3[index].getClientProperty("id"));
                         igra.move = new Move(buttons3[index].getClientProperty("id").toString());
+                        if(oznaka == "X") uputa.setText("Na potezu igrač " + igraci.first);
+                        else uputa.setText("Na potezu igrač " + igraci.second);
                     }  
                 });
                 buttons4[i] = new JButton(" ");
@@ -481,6 +520,8 @@ public class Gui extends javax.swing.JFrame {
                         else oznaka = "X";
                         System.out.println(buttons4[index].getClientProperty("id"));
                         igra.move = new Move(buttons4[index].getClientProperty("id").toString());
+                        if(oznaka == "X") uputa.setText("Na potezu igrač " + igraci.first);
+                        else uputa.setText("Na potezu igrač " + igraci.second);
                     }  
                 });
                 nivo1.add(buttons1[i]);
