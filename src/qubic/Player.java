@@ -97,7 +97,7 @@ public class Player {
         
         //Funkcija vraća optimalni potez
         public Move hint(Cube cube){
-            //System.out.println("Hint za" + id);
+            //System.out.println("Hint za " + id);
             Pair<Integer, Move> result = new Pair<>();
             ArrayList<Move> moves = cube.generate_moves();
             Collections.shuffle(moves);

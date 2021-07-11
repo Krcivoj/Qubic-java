@@ -646,7 +646,7 @@ public class Gui extends javax.swing.JFrame {
             hint.addActionListener(new ActionListener(){  
                 @Override
                 public void actionPerformed(ActionEvent e){
-                    for(int i = 0; i < 9; i++){
+                    for(int i = 0; i < 16; i++){
                         if(buttons1[i].getClientProperty("id").toString().equals(pomoc.toString())){
                             buttons1[i].setBackground(new java.awt.Color(0, 153, 102));
                             hintGrid = buttons1[i];
