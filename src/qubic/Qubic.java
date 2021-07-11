@@ -10,6 +10,7 @@ import java.util.Scanner;
  * @author User
  */
 public class Qubic {
+    public Move move;
     //kocka na kojoj se igra
     private Cube mCube;
     private Gui gui;
@@ -54,12 +55,22 @@ public class Qubic {
             gui.uputa.setText("Na redu je igrač oznake ");
             gui.uputa.revalidate();
             gui.uputa.repaint();
-            mPlayers[playerOnMove].play(mCube);
+            while(move == null){
+                try
+                {
+                    Thread.sleep(10);
+                }
+                catch(InterruptedException ex)
+                {
+                    Thread.currentThread().interrupt();
+                }
+            }
+            mPlayers[playerOnMove].play(mCube, move);
+            move = null;
             mCube.print();
             playerOnMove++;
             result = mCube.result();
         }
-        System.out.print("GOTOVOOO!");
         if(result == 500)
             winner = mPlayers[0];
         

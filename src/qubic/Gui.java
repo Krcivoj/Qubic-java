@@ -18,6 +18,8 @@ import javax.swing.JPanel;
  */
 public class Gui extends javax.swing.JFrame {
     static String oznaka = "X";
+    static Qubic igra;
+    static Move pomoc = new Move(1,1,1);
     /**
      * Creates new form gui
      */
@@ -367,6 +369,7 @@ public class Gui extends javax.swing.JFrame {
                         if( "X".equals(oznaka)) oznaka = "O";
                         else oznaka = "X";
                         System.out.println(buttons1[index].getClientProperty("id"));
+                        igra.move = new Move(buttons1[index].getClientProperty("id").toString());
                     } 
                 });
                 buttons2[i] = new JButton(" ");
@@ -380,6 +383,7 @@ public class Gui extends javax.swing.JFrame {
                         if( "X".equals(oznaka)) oznaka = "O";
                         else oznaka = "X";
                         System.out.println(buttons2[index].getClientProperty("id"));
+                        igra.move = new Move(buttons2[index].getClientProperty("id").toString());
                     }  
                 });
                 buttons3[i] = new JButton(" ");
@@ -393,6 +397,7 @@ public class Gui extends javax.swing.JFrame {
                         if( "X".equals(oznaka)) oznaka = "O";
                         else oznaka = "X";
                         System.out.println(buttons3[index].getClientProperty("id"));
+                        igra.move = new Move(buttons3[index].getClientProperty("id").toString());
                     }  
                 });
                 nivo1.add(buttons1[i]);
@@ -402,10 +407,7 @@ public class Gui extends javax.swing.JFrame {
                
             }
             //pocetak igre 
-            Qubic igra = new Qubic(3, this);
-            //Player pobjednik = igra.play();
-            System.out.print("Vani sam");
-            //ispis s winner.id() ako je null je remi
+            igra = new Qubic(3, this);
                 
                 
         }
@@ -436,6 +438,7 @@ public class Gui extends javax.swing.JFrame {
                         if( "X".equals(oznaka)) oznaka = "O";
                         else oznaka = "X";
                         System.out.println(buttons1[index].getClientProperty("id"));
+                        igra.move = new Move(buttons1[index].getClientProperty("id").toString());
                     }  
                 });
                 buttons2[i] = new JButton(" ");
@@ -449,6 +452,7 @@ public class Gui extends javax.swing.JFrame {
                         if( "X".equals(oznaka)) oznaka = "O";
                         else oznaka = "X";
                         System.out.println(buttons2[index].getClientProperty("id"));
+                        igra.move = new Move(buttons2[index].getClientProperty("id").toString());
                     }  
                 });
                 buttons3[i] = new JButton(" ");
@@ -462,6 +466,7 @@ public class Gui extends javax.swing.JFrame {
                         if( "X".equals(oznaka)) oznaka = "O";
                         else oznaka = "X";
                         System.out.println(buttons3[index].getClientProperty("id"));
+                        igra.move = new Move(buttons3[index].getClientProperty("id").toString());
                     }  
                 });
                 buttons4[i] = new JButton(" ");
@@ -475,6 +480,7 @@ public class Gui extends javax.swing.JFrame {
                         if( "X".equals(oznaka)) oznaka = "O";
                         else oznaka = "X";
                         System.out.println(buttons4[index].getClientProperty("id"));
+                        igra.move = new Move(buttons4[index].getClientProperty("id").toString());
                     }  
                 });
                 nivo1.add(buttons1[i]);
@@ -483,7 +489,7 @@ public class Gui extends javax.swing.JFrame {
                 nivo4.add(buttons4[i]);
             }
             //pocetak igre
-            Qubic igra = new Qubic(4, this);
+            igra = new Qubic(4, this);
         }
         
     }//GEN-LAST:event_kreniMouseClicked

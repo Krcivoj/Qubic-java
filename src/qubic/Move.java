@@ -20,6 +20,14 @@ public class Move {
         mRow = 0;
         mColumn = 0;
     }
+    
+    public Move(String line){
+        String[] elements = line.split(",");
+        mLevel = Integer.parseInt(elements[0]);
+        mRow = Integer.parseInt(elements[1]);
+        mColumn = Integer.parseInt(elements[2]);
+    }
+    
     public Move(int i, int j, int k){
         mLevel = i;
         mRow = j;

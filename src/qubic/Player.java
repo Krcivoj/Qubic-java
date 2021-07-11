@@ -95,14 +95,13 @@ public class Player {
         }
         
         //Funkcija kojom se izvrsava potez igraca
-        public void play(Cube cube)
+        public void play(Cube cube, Move move)
         {
             Pair<Integer, Move> result = new Pair<>();
-            Move move;
             ArrayList<Move> moves = cube.generate_moves();
             Collections.shuffle(moves);
 
-            int alpha = -1000;
+            /**int alpha = -1000;
             int beta = 1000;
             for(int i = 1; i <= cube.maxDepth(); i++){
                 result = minMax(cube, moves, mName, alpha, beta, i);
@@ -126,18 +125,8 @@ public class Player {
 
             System.out.println("Na redu je igrac: (poziv iz playera)" + mName);
             
-            //System.out.println("Hint: " + result.first + result.second);
+            System.out.println("Hint: " + result.first + result.second);**/
 
-            do{
-                
-                System.out.println("Odaberite potez:");
-                Scanner myInput = new Scanner( System.in );
-                String line = myInput.nextLine();
-                String[] elements = line.split(",");
-                int i = Integer.parseInt(elements[0]);
-                int j = Integer.parseInt(elements[1]);
-                int k = Integer.parseInt(elements[2]);
-                move = new Move(i, j, k);
-            }while( !cube.play(move,mName));
+            cube.play(move,mName);
         }
 }
