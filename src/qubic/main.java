@@ -20,7 +20,7 @@ public class main {
         /**
         System.out.println("------IGRA QUBIC ZAPOCINJE------\n");
         Qubic game = new Qubic();**/
-        while(Gui.igra == null){
+        while(app.igra == null){
             try
             {
                 Thread.sleep(10);
@@ -32,13 +32,20 @@ public class main {
         }
         Player winner = app.igra.play();
         
-        if(winner != null){
-            if(winner.id() == 'X') app.obradiKraj(1);
-            else if (winner.id() == 'O') app.obradiKraj(-1);
-            
+        try
+        {
+            if(winner != null){
+                if(winner.id() == 'X') app.obradiKraj(1);
+                else if (winner.id() == 'O') app.obradiKraj(-1);
+
+            }
+            else{
+                app.obradiKraj(0);
+            }
         }
-        else{
-            app.obradiKraj(0);
+        catch(InterruptedException ex)
+        {
+            Thread.currentThread().interrupt();
         }
     }
 }

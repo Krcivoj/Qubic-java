@@ -398,7 +398,6 @@ public class Cube4 implements Cube {
         @Override
         public int maxDepth()
         {
-            //TODO provjeriti jeli optimalan i u javi
             //broj 6 se pokazao optimalnim
             return 6;
         }

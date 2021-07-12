@@ -417,6 +417,7 @@ public class Gui extends javax.swing.JFrame {
                         cekajRacunalo(buttons1, buttons2, buttons3);
                         igra.hintThread.interrupt();
                         hideHint();
+                        broj_poteza++;
                         buttons1[index].setText(oznaka);
                         buttons1[index].setEnabled(false);
                         //System.out.println(buttons1[index].getClientProperty("id"));
@@ -444,6 +445,7 @@ public class Gui extends javax.swing.JFrame {
                         cekajRacunalo(buttons1, buttons2, buttons3);
                         igra.hintThread.interrupt();
                         hideHint();
+                        broj_poteza++;
                         buttons2[index].setText(oznaka); 
                         buttons2[index].setEnabled(false);
                         //System.out.println(buttons2[index].getClientProperty("id"));
@@ -471,6 +473,7 @@ public class Gui extends javax.swing.JFrame {
                         cekajRacunalo(buttons1, buttons2, buttons3);
                         igra.hintThread.interrupt();
                         hideHint();
+                        broj_poteza++;
                         buttons3[index].setText(oznaka);
                         buttons3[index].setEnabled(false);
                         //System.out.println(buttons3[index].getClientProperty("id"));
@@ -556,6 +559,7 @@ public class Gui extends javax.swing.JFrame {
                         cekajRacunalo(buttons1, buttons2, buttons3, buttons4);
                         igra.hintThread.interrupt();
                         hideHint();
+                        broj_poteza++;
                         buttons1[index].setText(oznaka);
                         buttons1[index].setEnabled(false);
                         //System.out.println(buttons1[index].getClientProperty("id"));
@@ -583,6 +587,7 @@ public class Gui extends javax.swing.JFrame {
                         cekajRacunalo(buttons1, buttons2, buttons3, buttons4);
                         igra.hintThread.interrupt();
                         hideHint();
+                        broj_poteza++;
                         buttons2[index].setText(oznaka);  
                         buttons2[index].setEnabled(false);
                         //System.out.println(buttons2[index].getClientProperty("id"));
@@ -610,6 +615,7 @@ public class Gui extends javax.swing.JFrame {
                         cekajRacunalo(buttons1, buttons2, buttons3, buttons4);
                         igra.hintThread.interrupt();
                         hideHint();
+                        broj_poteza++;
                         buttons3[index].setText(oznaka);
                         buttons3[index].setEnabled(false);
                         //System.out.println(buttons3[index].getClientProperty("id"));
@@ -637,6 +643,7 @@ public class Gui extends javax.swing.JFrame {
                         cekajRacunalo(buttons1, buttons2, buttons3, buttons4);
                         igra.hintThread.interrupt();
                         hideHint();
+                        broj_poteza++;
                         buttons4[index].setText(oznaka);
                         buttons4[index].setEnabled(false);
                         //System.out.println(buttons4[index].getClientProperty("id"));
@@ -771,6 +778,17 @@ public class Gui extends javax.swing.JFrame {
         else if(rezultat == 1) pop.crtaj(igraci.first.name);
         else pop.crtaj(igraci.second.name);
         TimeUnit.SECONDS.sleep(10);
+        oznaka = "X";
+        tmp = null;
+        igra = null;
+        pomoc = null;
+        hint = null;
+        hintGrid = null;
+        //postavljanje igrača, prvi je X drugi O
+        igraci = new Pair<>(new Player('X'), new Player('O'));
+        igrac = igraci.first;
+        racunaloThread = null;
+        broj_poteza=0;
         this.pozovi();
     }
     public static void pozovi() {
