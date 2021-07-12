@@ -317,6 +317,11 @@ public class Gui extends javax.swing.JFrame {
         nova.setBackground(new java.awt.Color(0, 153, 102));
         nova.setForeground(new java.awt.Color(255, 255, 255));
         nova.setText("Nova igra");
+        nova.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                novaMouseClicked(evt);
+            }
+        });
         menu.add(nova);
 
         statistika.setBackground(new java.awt.Color(0, 153, 102));
@@ -729,6 +734,22 @@ public class Gui extends javax.swing.JFrame {
         uputaPop pop_uputa = new uputaPop();
         pop_uputa.crtaj();
     }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void novaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_novaMouseClicked
+        // TODO add your handling code here:
+        oznaka = "X";
+        tmp = null;
+        igra = null;
+        pomoc = null;
+        hint = null;
+        hintGrid = null;
+        //postavljanje igrača, prvi je X drugi O
+        igraci = new Pair<>(new Player('X'), new Player('O'));
+        igrac = igraci.first;
+        racunaloThread = null;
+        broj_poteza=0;
+        this.pozovi();
+    }//GEN-LAST:event_novaMouseClicked
 
     public void setHint(Move move){
         pomoc = move;
