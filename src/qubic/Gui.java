@@ -194,7 +194,7 @@ public class Gui extends javax.swing.JFrame {
         );
 
         napomena.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        napomena.setText("Napomena: za računalo kao protivnika u formu upišite računalo.");
+        napomena.setText("Napomena: za računalo kao protivnika u formu upišite racunalo.");
 
         javax.swing.GroupLayout formaPanelLayout = new javax.swing.GroupLayout(formaPanel);
         formaPanel.setLayout(formaPanelLayout);
