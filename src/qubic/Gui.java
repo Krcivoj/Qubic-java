@@ -9,6 +9,7 @@ import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.TimeUnit;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,6 +20,7 @@ import javax.swing.JPanel;
  */
 public class Gui extends javax.swing.JFrame {
     static String oznaka = "X";
+    static String tmp;
     static Qubic igra;
     static Move pomoc = null;
     static JButton hint;
@@ -27,9 +29,9 @@ public class Gui extends javax.swing.JFrame {
     static Pair<Player, Player> igraci = new Pair<>(new Player('X'), new Player('O'));
     static Player igrac = igraci.first;
     static Thread racunaloThread;
-    /**
-     * Creates new form gui
-     */
+    static int broj_poteza=0;
+    
+    
     public Gui() {
         initComponents();
         nivo1.setVisible(false);
@@ -320,16 +322,31 @@ public class Gui extends javax.swing.JFrame {
         statistika.setBackground(new java.awt.Color(0, 153, 102));
         statistika.setForeground(new java.awt.Color(255, 255, 255));
         statistika.setText("Statistika");
+        statistika.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                statistikaMouseClicked(evt);
+            }
+        });
         menu.add(statistika);
 
         ljestvica.setBackground(new java.awt.Color(0, 153, 102));
         ljestvica.setForeground(new java.awt.Color(255, 255, 255));
         ljestvica.setText("Ljestvica");
+        ljestvica.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ljestvicaMouseClicked(evt);
+            }
+        });
         menu.add(ljestvica);
 
         jMenu1.setBackground(new java.awt.Color(0, 153, 102));
         jMenu1.setForeground(new java.awt.Color(255, 255, 255));
         jMenu1.setText("Upute");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
         menu.add(jMenu1);
 
         setJMenuBar(menu);
@@ -361,7 +378,7 @@ public class Gui extends javax.swing.JFrame {
         hint.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         hint.setFocusPainted(false);
         
-        
+        napomena.setVisible(false);
         if(znak.getSelectedItem().toString() == "X"){
             igraci.first.name = prvoIme.getText();
             igraci.second.name = drugoIme.getText();
@@ -378,6 +395,7 @@ public class Gui extends javax.swing.JFrame {
         
         //igra na 3x3x3
         if(tip == "3x3x3"){
+            tmp = "3x3x3";
             nivo1.setVisible(true);
             nivo2.setVisible(true);
             nivo3.setVisible(true);
@@ -513,6 +531,7 @@ public class Gui extends javax.swing.JFrame {
                 
         }
         else{  //igra na 4x4x4
+            tmp = "4x4x4";
             nivo1.setVisible(true);
             nivo2.setVisible(true);
             nivo4.setVisible(true);
@@ -686,6 +705,24 @@ public class Gui extends javax.swing.JFrame {
         
     }//GEN-LAST:event_kreniMouseClicked
 
+    private void statistikaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_statistikaMouseClicked
+        // novi pop up window
+        statistikaPop pop_stat = new statistikaPop();
+        pop_stat.crtaj();
+    }//GEN-LAST:event_statistikaMouseClicked
+
+    private void ljestvicaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ljestvicaMouseClicked
+        // novi pop up window
+        ljestvicaPop pop_ljes = new ljestvicaPop();
+        pop_ljes.crtaj();
+    }//GEN-LAST:event_ljestvicaMouseClicked
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        // novi pop up window
+        uputaPop pop_uputa = new uputaPop();
+        pop_uputa.crtaj();
+    }//GEN-LAST:event_jMenu1MouseClicked
+
     public void setHint(Move move){
         pomoc = move;
         hint.setEnabled(true);
@@ -726,9 +763,16 @@ public class Gui extends javax.swing.JFrame {
             }
         }
     }
-    /**
-     * @param args the command line arguments
-     */
+    public void obradiKraj(int rezultat) throws InterruptedException{
+        Baza.ubaci(igraci.first.name, igraci.second.name, tmp, broj_poteza, rezultat);
+        
+        krajPop pop = new krajPop(" ");
+        if(rezultat == 0) pop.crtaj("REMI");
+        else if(rezultat == 1) pop.crtaj(igraci.first.name);
+        else pop.crtaj(igraci.second.name);
+        TimeUnit.SECONDS.sleep(10);
+        this.pozovi();
+    }
     public static void pozovi() {
         
 
@@ -754,7 +798,7 @@ public class Gui extends javax.swing.JFrame {
     private javax.swing.JPanel lijevo;
     private javax.swing.JMenu ljestvica;
     private javax.swing.JMenuBar menu;
-    private javax.swing.JLabel napomena;
+    public javax.swing.JLabel napomena;
     private javax.swing.JLabel naslov;
     private javax.swing.JPanel naslovni;
     private javax.swing.JPanel nivo1;

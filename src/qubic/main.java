@@ -31,12 +31,14 @@ public class main {
             }
         }
         Player winner = app.igra.play();
-        System.out.println("-----IGRA JE GOTOVA!-----");
+        
         if(winner != null){
-            System.out.println("POBIJEDIO JE: " + winner.id());
+            if(winner.id() == 'X') app.obradiKraj(1);
+            else if (winner.id() == 'O') app.obradiKraj(-1);
+            
         }
         else{
-            System.out.println("IGRA JE ZAVRSILA NERIJESENO!");
+            app.obradiKraj(0);
         }
     }
 }
